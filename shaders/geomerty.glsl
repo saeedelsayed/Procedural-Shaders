@@ -5,7 +5,7 @@
 // Screenshot: screenshots/geometry/circle.png
 // ==========================================
 
-// Converts RGB values from 0–255 range to normalized 0–1 range (GLSL expects 0–1)
+// Converts RGB values from 0â€“255 range to normalized 0â€“1 range (GLSL expects 0â€“1)
 vec3 rgb(float r, float g, float b) {
     return vec3(r / 255.0, g / 255.0, b / 255.0);
 }
@@ -44,4 +44,33 @@ void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     vec4 layer2 = circle(uv, center, radius, red);
    // Blend circle layer over background using the circle's alpha (anti-aliased edge)
     fragColor = mix(layer1, layer2, layer2.a);
+}
+
+
+// ==========================================
+// Shader: Square Shader
+// Category: Geometry
+// Description: Draws a centered red square using an SDF approach.
+// Screenshot: screenshots/geometry/square.png
+// ==========================================
+vec3 sdfSquare(vec2 uv, float size, vec2 offset) {
+  float x = uv.x - offset.x;
+  float y = uv.y - offset.y;
+  float d = max(abs(x), abs(y)) - size;
+
+  return d > 0. ? vec3(1.) : vec3(1., 0., 0.);
+}
+
+void mainImage( out vec4 fragColor, in vec2 fragCoord )
+{
+  vec2 uv = fragCoord/iResolution.xy; // <0, 1>
+  uv -= 0.5; // <-0.5,0.5>
+  uv.x *= iResolution.x/iResolution.y; // fix aspect ratio
+
+  vec2 offset = vec2(0.0, 0.0);
+
+  vec3 col = sdfSquare(uv, 0.2, offset);
+
+  // Output to screen
+  fragColor = vec4(col,1.0);
 }
