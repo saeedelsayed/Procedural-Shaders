@@ -1,5 +1,4 @@
 // 1D noise
-
 // By Morgan McGuire @morgan3d, http://graphicscodex.com
 // Reuse permitted under the BSD license.
 
@@ -7,6 +6,8 @@
 // They are tuned to avoid visible periodicity for both positive and
 // negative coordinates within a few orders of magnitude.
 
+// For multiple octaves
+#define NOISE fbm
 #define NUM_NOISE_OCTAVES 5
 
 // Precision-adjusted variations of https://www.shadertoy.com/view/4djSRW
