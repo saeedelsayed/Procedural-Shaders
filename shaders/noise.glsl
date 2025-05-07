@@ -47,7 +47,7 @@ void mainImage( out vec4 fragColor, in vec2 fragCoord ) {
 // Shader: Stellar Corona Shader
 // Category: Noise
 // Description: Simulates a dynamic, noise-driven stellar corona effect that reacts to audio input and evolves over time.
-// Screenshot: 
+// Screenshot: screenshots/3D_Noise/StellarCorona.png
 // ==========================================
 float snoise(vec3 uv, float res)	// by trisomie21
 {
