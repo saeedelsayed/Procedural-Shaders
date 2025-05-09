@@ -5,6 +5,7 @@
 //   Provides geometric primitives and operations for raymarching-based rendering.
 //   Implements a scene defined by a signed distance field (a sphere), normal 
 //   estimation via central differences, and raymarching to detect surface hits.
+// screenshots/geometry/SDF_Sphere.png
 // ==========================================
 
 /**
@@ -57,4 +58,41 @@ float raymarch(vec3 position, vec3 direction) {
         total_distance += d;
     }
     return -1.0;
+}
+
+// Displays a 3D red sphere using raymarching and diffuse lighting.
+void mainImage(out vec4 fragColor, in vec2 fragCoord)
+{
+    // 1. Normalize coordinates to range [-1, 1], aspect corrected
+    vec2 uv = (fragCoord / iResolution.xy) * 2.0 - 1.0;
+    uv.x *= iResolution.x / iResolution.y;
+
+    // 2. Define camera
+    vec3 camera_pos = vec3(0.0, 0.0, 1.5);      // Camera at z = 1.5
+    vec3 target = vec3(0.0);                    // Looking at origin
+    vec3 forward = normalize(target - camera_pos);
+    vec3 right = normalize(cross(vec3(0.0, 1.0, 0.0), forward));
+    vec3 up = cross(forward, right);
+    
+    // 3. Build ray direction through pixel
+    vec3 ray_dir = normalize(uv.x * right + uv.y * up + 1.0 * forward);
+
+    // 4. Perform raymarching
+    float dist = raymarch(camera_pos, ray_dir);
+
+    // 5. If hit, compute normal and shading
+    vec3 color;
+    if (dist > 0.0) {
+        vec3 hit_pos = camera_pos + ray_dir * dist;
+        vec3 normal = getNormal(hit_pos, 0.001);
+
+        // Simple diffuse shading with fixed light direction
+        vec3 light_dir = normalize(vec3(0.8, 0.6, 1.0));
+        float diffuse = max(dot(normal, light_dir), 0.0);
+        color = vec3(1.0, 0.3, 0.2) * diffuse;  // Red-ish color shaded by light
+    } else {
+        color = vec3(0.9); // Background color
+    }
+
+    fragColor = vec4(color, 1.0);
 }
