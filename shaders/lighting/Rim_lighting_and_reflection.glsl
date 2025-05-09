@@ -6,8 +6,8 @@
 // Screenshot: 
 //   (1) Black background to isolate rim light behavior.
 //       screenshots/lighting/RimReflectionLighting_black.png
-//   (2) Checkerboard background to highlight reflection contribution.
-//       screenshots/lighting/RimReflectionLighting_Checkerboard.png
+//   (2) Bayer background to highlight reflection contribution.
+//       screenshots/lighting/RimReflectionLighting_Bayer.png
 // ==========================================
 
 /**
