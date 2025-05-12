@@ -3,6 +3,7 @@
 // Category: Material
 // Description: 
 //   Returns the base surface color modulated by background texture (refraction).
+// Screenshot: screenshots/materials/materials.png
 // ==========================================
 
 /**
@@ -52,4 +53,29 @@ vec4 computeMaterial(vec3 dir, vec3 N, vec3 pos, vec2 uv) {
     vec4 lighting = computeLighting(dir, N);
     vec4 overlay = computeNoiseOverlay(uv);
     return materialColor + lighting + overlay;
+}
+
+// Simple constant ambient lighting
+vec4 computeLighting(vec3 dir, vec3 N) {
+    return vec4(0.2, 0.2, 0.2, 1.0);
+}
+
+// Flat overlay with slight blue tint
+vec4 computeNoiseOverlay(vec2 uv) {
+    return vec4(0.05, 0.05, 0.1, 1.0);
+}
+
+// Main image entry point (Shadertoy)
+void mainImage(out vec4 fragColor, in vec2 fragCoord) {
+    vec2 uv = fragCoord / iResolution.xy;
+
+    // Screen space to NDC (Normalized Device Coordinates)
+    vec2 p = uv * 2.0 - 1.0;
+    p.x *= iResolution.x / iResolution.y;
+
+    vec3 dir = normalize(vec3(p, -1.0)); // View direction
+    vec3 N = normalize(vec3(0.0, 0.0, 1.0)); // Surface normal
+    vec3 pos = vec3(0.0); // Not used
+
+    fragColor = computeMaterial(dir, N, pos, uv);
 }
