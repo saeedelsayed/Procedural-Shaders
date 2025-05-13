@@ -13,6 +13,10 @@
 //
 //    These functions take float distance values (from SDF functions)
 //    and return a combined distance field according to the CSG logic.
+// Usage example:
+//    float d1 = SphereSDF(p, center1, radius1);
+//    float d2 = BoxSDF(p, center2, size);
+//    float d = CSGUnion(d1, d2);
 // Screenshot: screenshots/geometry/CSG.png
 // From Ruimin Ma
 
