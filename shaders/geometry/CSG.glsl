@@ -17,7 +17,7 @@
 //    float d1 = SphereSDF(p, center1, radius1);
 //    float d2 = BoxSDF(p, center2, size);
 //    float d = CSGUnion(d1, d2);
-// Screenshot: screenshots/geometry/CSG.png
+// Screenshot: screenshots/geometry/CSG.pdf
 // From Ruimin Ma
 
 
