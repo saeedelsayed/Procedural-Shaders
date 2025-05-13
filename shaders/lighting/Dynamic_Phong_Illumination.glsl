@@ -8,11 +8,12 @@
 // Screenshot: screenshots/lighting/dynamic_phong_lighting.png
 // ==========================================
 
-// ----------------------------------------------------------------------------
+// ------------------------------------------
 // Input: A sample point in the Signed Distance Function (SDF).
 // Output: The surface normal direction at the position of point p.
 // Description: The function estimates the surface normal using the finite difference method, 
 //              specifically by calculating the SDF (Signed Distance Function) differences between a point and its neighbors.
+// ------------------------------------------
 vec3 estimateNormal(vec3 p) {
     return normalize(vec3(
         sceneSDF(vec3(p.x + EPSILON, p.y, p.z)) - sceneSDF(vec3(p.x - EPSILON, p.y, p.z)),
@@ -21,7 +22,7 @@ vec3 estimateNormal(vec3 p) {
     ));
 }
 
-// ----------------------------------------------------------------------------
+// ------------------------------------------
 // Input: vec3 k_d: Diffuse reflection coefficient
 //        vec3 k_s: Specular reflection coefficient
 //        float alpha: Shininess coefficient
@@ -31,6 +32,7 @@ vec3 estimateNormal(vec3 p) {
 //        vec3 lightIntensity: Light intensity
 // Output: The lighting color contribution from a single light source.
 // Description: A wrapper function to facilitate the setup of multiple dynamic light sources.
+// ------------------------------------------
 vec3 phongContribForLight(vec3 k_d, vec3 k_s, float alpha, vec3 p, vec3 eye,
                           vec3 lightPos, vec3 lightIntensity) {
     vec3 N = estimateNormal(p);
@@ -54,7 +56,7 @@ vec3 phongContribForLight(vec3 k_d, vec3 k_s, float alpha, vec3 p, vec3 eye,
     return lightIntensity * (k_d * dotLN + k_s * pow(dotRV, alpha));
 }
 
-// ----------------------------------------------------------------------------
+// ------------------------------------------
 // Input: vec3 k_a: Ambient reflection coefficient
 //        vec3 k_d: Diffuse reflection coefficient
 //        vec3 k_s: Specular reflection coefficient
@@ -64,6 +66,7 @@ vec3 phongContribForLight(vec3 k_d, vec3 k_s, float alpha, vec3 p, vec3 eye,
 // Output: Final lighting color
 // Description: Calculates the lighting contribution from multiple light sources and ambient light on the surface of an object. 
 //              This function supports dynamic light sources, with light positions updated over time using iTime.
+// ------------------------------------------
 vec3 phongIllumination(vec3 k_a, vec3 k_d, vec3 k_s, float alpha, vec3 p, vec3 eye) {
     const vec3 ambientLight = 0.5 * vec3(1.0, 1.0, 1.0);
     vec3 color = ambientLight * k_a;
