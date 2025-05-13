@@ -71,3 +71,33 @@ float sample3Dfrom2DNoise(in vec3 x, sampler2D texture2DInput)
                   f.y).yx;
     return mix(rg.x, rg.y, f.z) * 2.0 - 1.0;  
 }
+
+// ------------------------------------------
+// Input: vec3 p: 3D point for noise calculation
+//        int oct: number of octaves (layers of noise detail)
+//        Array<float> scales: array of scaling factors for each octave (frequency scaling)
+// Output: A float value representing the FBM result at the point p, in the range [-1, 1]
+// Description: This 3D FBM is designed to generate time-varying noise by dynamically adjusting the input coordinates over time, creating a visual progression effect.
+//              And supports passing scaling factors for each octave, enabling control over the frequency and detail of the generated noise.
+// ------------------------------------------
+uniform float scales[8];
+
+float fbm3D(in vec3 p, int oct)
+{
+    if (oct > 8) return 0.0;
+
+    float q = p - float3(0.0, 0.1, 1.0) * iTime; 
+    float g = 0.5 + 0.5 * noise(q * 0.3);
+    float f = 0.5 * noise(q);
+    float amp = 0.5;
+
+    for(int i = 1; i < oct; i++){
+        f += amp * noise(q);
+        q *= scales[i-1];
+        amp *= 0.5;
+    }
+
+    f += amp * noise(q);
+    f = mix(f * 0.1 - 0.5, f, g * g);
+    return 1.5 * f - 0.5 - p.y;
+}
