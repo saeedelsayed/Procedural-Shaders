@@ -1,6 +1,6 @@
 // Lambertian diffuse shading shader
-// Category: lighting
-// Description:
+// Category: Lighting
+// Description: 
 //    This module implements Lambertian diffuse lighting,
 //    one of the simplest and most widely used BRDF models.
 //
