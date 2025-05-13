@@ -24,6 +24,7 @@ vec3 permute(vec3 x) {
 // Description: The function implements a 2D Simplex noise algorithm, which uses a
 //              permutation table, gradients, and a smooth interpolation method
 //              to produce visually coherent noise for the input coordinates.
+// ------------------------------------------
 float snoise(vec2 v)
 {
 
