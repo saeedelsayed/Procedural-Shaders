@@ -79,6 +79,7 @@ float sample3Dfrom2DNoise(in vec3 x, sampler2D texture2DInput)
 // Output: A float value representing the FBM result at the point p, in the range [-1, 1]
 // Description: This 3D FBM is designed to generate time-varying noise by dynamically adjusting the input coordinates over time, creating a visual progression effect.
 //              And supports passing scaling factors for each octave, enabling control over the frequency and detail of the generated noise.
+//              The noise function can be replaced as needed.
 // ------------------------------------------
 uniform float scales[8];
 
