@@ -1,5 +1,35 @@
+// ==========================================
+// Shader: Sun and halo Shader
+// Category: Lighting & Atmospheric Scattering
+// Description: Computes a realistic sun appearance with core glow, halo, and atmospheric absorption.
+// Screenshot: screenshots/SunAndHalo.png
+// ==========================================
 
-
+/*
+ * This module renders a physically inspired sun disk with surrounding halo and atmospheric attenuation.
+ * It simulates both the optical core and Mie scattering halo, and applies sky-based absorption and tone mapping.
+ *
+ * Main Components:
+ * - getSunPoint(): Computes the sharp sun disk based on distance to light direction.
+ * - getMie(): Models the soft scattering halo around the sun using a falloff function.
+ * - getSkyAbsorption(): Simulates atmospheric light absorption based on height.
+ * - jodieReinhardTonemap(): Tone mapping function for displaying HDR lighting effects.
+ * - getAtmosphericSun(): Full sun color composition using all above components.
+ *
+ * Inputs:
+ *   fragUV     - vec2 : current fragment's UV position (normalized screen space)
+ *   lightUV    - vec2 : sun's position on screen (normalized screen space)
+ *   fov        - float: field of view angle used in projection (in radians)
+ *
+ * Output:
+ *   vec3 : RGB color of the sun at the given fragment position, tone-mapped and combined
+ *          from core glow, halo, and atmospheric absorption
+ *
+ * Notes:
+ * - Assumes input coordinates are normalized in [0,1].
+ * - Designed to be used in skybox / background passes.
+ * - Halo sharpness adapts to sun elevation for dynamic transition from horizon to zenith.
+ */
 
 // ---------- Simple Sun Constants ----------
 const float PI = 3.14159265358979323846;
