@@ -82,8 +82,6 @@ vec3 getAtmosphericSun(vec2 fragUV, vec2 lightUV) {
     return finalColor;
 }
 
-
-
 void mainImage(out vec4 fragColor, in vec2 fragCoord) {
     // Aspect ratio and scale factor
     float AR = iResolution.x / iResolution.y;
