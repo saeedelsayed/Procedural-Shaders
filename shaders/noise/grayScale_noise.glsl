@@ -8,7 +8,7 @@
 /*
 to use this component in Godot, replace the following variables:
 
-iResolution -> iResolution
+iResolution -> resolution
 fragCoord -> UV
 iTime -> Time
 fragColor -> COLOR
