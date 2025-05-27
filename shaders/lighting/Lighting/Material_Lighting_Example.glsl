@@ -1,3 +1,13 @@
+// Material and Lighting Example
+// Category: material and lighting
+// Description:
+//    Use the applyPhongLighting function as an example to demonstrate how MaterialParams 
+//    and LightingContext are created and used. The applyPhongLighting function can be 
+//    replaced with any other reusable surface lighting model. Functions can be used 
+//    directly by including the corresponding file name.
+// Screenshot: screenshots/lighting/material_lighting_example.png
+// From Xuetong Fu
+
 // === Struct Definitions ===
 struct MaterialParams {
     vec3 baseColor;           // Diffuse/albedo base color
